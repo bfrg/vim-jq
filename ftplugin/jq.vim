@@ -22,8 +22,17 @@ setlocal include=^\\s*\\(import\\\|include\\)
 setlocal define=^\\s*def
 setlocal formatoptions=cqornlj
 
+" A module with relative path "foo/bar" is searched for by jq in "foo/bar.jq"
+" and "foo/bar/bar.jq" in the given search path.
+" While [i, [d, :checkpath! (and friends) always use includeexpr first, gf uses
+" includeexpr as fallback only when "foo/bar" is neither a file nor a directory.
+" Hence, pressing gf on "foo/bar" will open the directory "foo/bar" even though
+" we want to go to "foo/bar/bar.jq".
+" TODO: wee need custom gf, <c-w>gf, etc. mappings
+setlocal includeexpr=findfile(v:fname)!=''?v:fname:substitute(v:fname,'\\(\\(\\w\\+/\\)*\\)\\(\\w\\+\\)$','\\1\\3/\\3','')
+
 let b:undo_ftplugin = 'setlocal comments< commentstring< suffixesadd< include<'
-        \ . ' define< formatoptions<'
+        \ . ' define< formatoptions< includeexpr<'
 
 
 " Append default module search paths to &path
