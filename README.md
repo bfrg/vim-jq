@@ -1,7 +1,7 @@
 vim-jq
 ======
 
-Vim plugin for [jq](https://github.com/stedolan/jq) files.
+Vim runtime files for [jq](https://github.com/stedolan/jq) (the command-line JSON processor).
 
 
 Syntax highlighting
@@ -12,6 +12,8 @@ Syntax highlighting
 <dl><p align="center">
 <img src="https://user-images.githubusercontent.com/6266600/59893960-28064380-93df-11e9-9fa2-bf2933e4d6ea.png" width="480"/>
 </p></dl>
+
+(Code snippet from: [jq-zeros](https://github.com/joelpurra/jq-zeros))
 
 #### Syntax highlighting options
 
