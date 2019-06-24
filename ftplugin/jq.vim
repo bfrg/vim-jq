@@ -3,7 +3,7 @@
 " Language:     jq (Command-line JSON processor)
 " Author:       bfrg <https://github.com/bfrg>
 " Website:      https://github.com/bfrg/vim-jq
-" Last Change:  June 21, 2019
+" Last Change:  June 25, 2019
 " License:      Same as Vim itself (see :h license)
 " ==============================================================================
 
@@ -28,25 +28,21 @@ setlocal formatoptions=cqornlj
 " includeexpr as fallback only when "foo/bar" is neither a file nor a directory.
 " Hence, pressing gf on "foo/bar" will open the directory "foo/bar" even though
 " we want to go to "foo/bar/bar.jq".
-" TODO: wee need custom gf, <c-w>gf, etc. mappings
+" TODO: we need custom gf, <c-w>gf, etc. mappings
 setlocal includeexpr=findfile(v:fname)!=''?v:fname:substitute(v:fname,'\\(\\(\\w\\+/\\)*\\)\\(\\w\\+\\)$','\\1\\3/\\3','')
 
 let b:undo_ftplugin = 'setlocal comments< commentstring< suffixesadd< include<'
         \ . ' define< formatoptions< includeexpr<'
 
 
-" Append default module search paths to &path
-" Note: if ~/.jq is a file, it is sourced by jq into the main program
+" Append default module search paths to 'path'
 let s:paths = split(copy(&path), ',')
-let s:default_paths = []
-if !filereadable(expand('~/.jq'))
-    if !count(s:paths, expand('~/.jq'))
-        call add(s:default_paths, expand('~/.jq'))
-    endif
-endif
-call add(s:default_paths, simplify(fnamemodify(exepath('jq'), ':h') . '/../lib/jq'))
-" call add(s:default_paths, simplify(fnamemodify(exepath('jq'), ':h') . '/../lib'))
-let &l:path = join(extend(s:paths, s:default_paths), ',')
+let s:default_paths = [
+        \ expand('~/.jq'),
+        \ simplify(fnamemodify(exepath('jq'), ':h') . '/../lib/jq')
+        \ ]
+call extend(s:paths, filter(s:default_paths, '!count(s:paths, v:val) && isdirectory(v:val)'))
+let &l:path = join(s:paths, ',')
 unlet s:paths s:default_paths
 let b:undo_ftplugin .= ' | setlocal path<'
 
