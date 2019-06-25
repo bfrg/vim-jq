@@ -35,11 +35,28 @@ let g:jq_highlight_objects = 1
 let g:jq_highlight_function_calls = 1
 ```
 
+
 Mappings
 --------
 
-* Jump to `[count]` next/previous function definition: `]]`/`[[`.
-* Jump to `[count]` next/previous nested function definition: `]m`/`[m`.
+* Move to next/previous function definition: `]]`/`[[`
+* Move to next/previous nested function definition: `]m`/`[m`
+* Enhanced `gf`: when pressed on an included module path `foo/bar` edits the
+  file `foo/bar.jq` if the file can be found in `'path'`, otherwise tries to
+  edit `foo/bar/bar.jq`.
+* Move between matching `if/elif/else/end`, `try/catch`, and function definition
+  boundaries `def/;`: `%`
+
+
+Include file searches
+---------------------
+
+* Proper settings for `include`, `includeexpr`, `suffixesadd` and `define`. See
+  `:h include-search` and `:h definition-search` for details.
+* Jq's default search paths for
+  [modules](https://stedolan.github.io/jq/manual/#Modules), `~/.jq` and
+  `$ORIGIN/../lib/jq` (where `$ORIGIN` is the path to the `jq` executable) are
+  appended to `'path'` only when they exist.
 
 
 License

@@ -22,13 +22,6 @@ setlocal include=^\\s*\\(import\\\|include\\)
 setlocal define=^\\s*def
 setlocal formatoptions=cqornlj
 
-" A module with relative path "foo/bar" is searched for by jq in "foo/bar.jq"
-" and "foo/bar/bar.jq" in the given search path.
-" While [i, [d, :checkpath! (and friends) always use includeexpr first, gf uses
-" includeexpr as fallback only when "foo/bar" is neither a file nor a directory.
-" Hence, pressing gf on "foo/bar" will open the directory "foo/bar" even though
-" we want to go to "foo/bar/bar.jq".
-" TODO: we need custom gf, <c-w>gf, etc. mappings
 setlocal includeexpr=findfile(v:fname)!=''?v:fname:substitute(v:fname,'\\(\\(\\w\\+/\\)*\\)\\(\\w\\+\\)$','\\1\\3/\\3','')
 
 let b:undo_ftplugin = 'setlocal comments< commentstring< suffixesadd< include<'
@@ -86,6 +79,23 @@ if !exists('g:no_plugin_maps') && !exists('g:no_jq_maps')
             \ . ' | execute "nunmap <buffer> ]m" | execute "nunmap <buffer> [m"'
             \ . ' | execute "xunmap <buffer> ]m" | execute "xunmap <buffer> [m"'
             \ . ' | execute "ounmap <buffer> ]m" | execute "ounmap <buffer> [m"'
+
+    " Enhanced gf
+    " TODO: deal with error 'E446: No file name under cursor'
+    cmap <buffer><script><expr> <plug><cfile> jq#jq_cfile()
+    nnoremap <sid>: :<c-u><c-r>=v:count ? v:count : ''<cr>
+    nmap <buffer><silent> gf          <sid>:find    <plug><cfile><cr>
+    nmap <buffer><silent> <c-w>f      <sid>:sfind   <plug><cfile><cr>
+    nmap <buffer><silent> <c-w><c-f>  <sid>:sfind   <plug><cfile><cr>
+    nmap <buffer><silent> <c-w>gf     <sid>:tabfind <plug><cfile><cr>
+    cmap <buffer>         <c-r><c-f>  <plug><cfile>
+    cmap <buffer>         <c-r><c-p>  <c-r>=findfile(expand('<plug><cfile>'))<cr>
+
+    let b:undo_ftplugin .=
+            \   ' | execute "nunmap <buffer> gf" | execute "nunmap <buffer> <c-w>f"'
+            \ . ' | execute "nunmap <buffer> <c-w><c-f>" | execute "nunmap <buffer> <c-w>gf"'
+            \ . ' | execute "cunmap <buffer> <c-r><c-f>" | execute "cunmap <buffer> <c-r><c-p>"'
+            \ . ' | execute "cunmap <buffer> <plug><cfile>"'
 endif
 
 let &cpoptions = s:cpo_save
