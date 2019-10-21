@@ -1,7 +1,10 @@
 vim-jq
 ======
 
-Vim runtime files for [jq](https://github.com/stedolan/jq) (the command-line JSON processor).
+Vim runtime files for [jq][jq] script files (the command-line JSON processor).
+
+If you are looking for a Vim plugin that runs jq interactively in Vim similar to
+[jqplay.org][jqplay], see [vim-jqplay][vim-jqplay].
 
 
 Syntax highlighting
@@ -13,7 +16,7 @@ Syntax highlighting
 <img src="https://user-images.githubusercontent.com/6266600/59893960-28064380-93df-11e9-9fa2-bf2933e4d6ea.png" width="480"/>
 </p></dl>
 
-(Code snippet from: [jq-zeros](https://github.com/joelpurra/jq-zeros))
+(Code snippet from: [jq-zeros][jq-zeros])
 
 #### Syntax highlighting options
 
@@ -53,13 +56,39 @@ Include file searches
 
 * Proper settings for `include`, `includeexpr`, `suffixesadd` and `define`. See
   `:h include-search` and `:h definition-search` for details.
-* Jq's default search paths for
-  [modules](https://stedolan.github.io/jq/manual/#Modules), `~/.jq` and
+* Jq's default search paths for [modules][jq-modules], `~/.jq` and
   `$ORIGIN/../lib/jq` (where `$ORIGIN` is the path to the `jq` executable) are
   appended to `'path'` only when they exist.
 
+
+Installation
+------------
+
+#### Manual Installation
+
+```bash
+$ cd ~/.vim/pack/git-plugins/start
+$ git clone https://github.com/bfrg/vim-jq
+```
+**Note:** The directory name `git-plugins` is arbitrary, you can pick any other
+name. For more details see `:help packages`.
+
+#### Plugin Managers
+
+Assuming [vim-plug][plug] is your favorite plugin manager, add the following to
+your `.vimrc`:
+```vim
+Plug 'bfrg/vim-jq'
+```
 
 License
 -------
 
 Distributed under the same terms as Vim itself. See `:help license`.
+
+[jq]: https://github.com/stedolan/jq
+[jqplay]: https://jqplay.org
+[vim-jqplay]: https://github.com/bfrg/vim-jqplay
+[jq-zeros]: https://github.com/joelpurra/jq-zeros
+[jq-modules]: https://stedolan.github.io/jq/manual/#Modules
+[plug]: https://github.com/junegunn/vim-plug
