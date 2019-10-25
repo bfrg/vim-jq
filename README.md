@@ -42,13 +42,13 @@ let g:jq_highlight_function_calls = 1
 Mappings
 --------
 
-* Move to next/previous function definition: `]]`/`[[`
-* Move to next/previous nested function definition: `]m`/`[m`
-* Enhanced `gf`: when pressed on an included module path `foo/bar` edits the
+* Move to next/previous function definition: <kbd>]]</kbd>, <kbd>[[</kbd>
+* Move to next/previous nested function definition: <kbd>]m</kbd>, <kbd>\[m</kbd>
+* Enhanced <kbd>gf</kbd>: when pressed on an included module path `foo/bar` edits the
   file `foo/bar.jq` if the file can be found in `'path'`, otherwise tries to
   edit `foo/bar/bar.jq`.
 * Move between matching `if/elif/else/end`, `try/catch`, and function definition
-  boundaries `def/;`: `%`
+  boundaries `def/;` with <kbd>%</kbd>.
 
 
 Include file searches
