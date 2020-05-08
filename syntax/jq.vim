@@ -3,7 +3,7 @@
 " Language:     jq (Command-line JSON processor)
 " Author:       bfrg <https://github.com/bfrg>
 " Website:      https://github.com/bfrg/vim-jq
-" Last Change:  Apr 26, 2020
+" Last Change:  May 9, 2020
 " License:      Same as Vim itself (see :h license)
 " ==============================================================================
 
@@ -24,8 +24,9 @@ syntax keyword JqTodo contained TODO FIXME XXX
 syntax match JqRun "\%^#!.*$"
 
 " Strings and string interpolation
-syntax region JqString start='"' skip='\\"' end='"' contains=JqStringInterpol
-syntax region JqStringInterpol matchgroup=JqOperator start='\\(' end=')' contained
+syntax region JqString start='"' skip='\\"' end='"' contains=JqStringInterpol,JqStringParen
+syntax region JqStringInterpol matchgroup=JqOperator start='\\(' end=')' contains=JqStringParen contained
+syntax region JqStringParen start='(' end=')' contains=JqStringParen contained
 
 " Numbers
 syntax match JqNumber "\<\d\+\>"
@@ -61,6 +62,7 @@ highlight default link JqRun            PreProc
 highlight default link JqComment        Comment
 highlight default link JqTodo           Todo
 highlight default link JqString         String
+highlight default link JqStringParen    String
 highlight default link JqStringInterpol String
 highlight default link JqNumber         Number
 highlight default link JqStatement      Statement
