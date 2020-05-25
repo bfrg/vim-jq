@@ -104,9 +104,11 @@ if get(g:, 'jq_highlight_builtin_functions', 1)
     syntax keyword jqBuiltinFunction tgamma trunc y0 y1 atan2 copysign drem fdim fmax fmin fmod frexp
     syntax keyword jqBuiltinFunction hypot jn ldexp modf nextafter nexttoward pow remainder scalb
     syntax keyword jqBuiltinFunction scalbln yn fma input inputs debug stderr input_filename
-    syntax keyword jqBuiltinFunction input_line_number truncate_stream fromstream tostream contains
+    syntax keyword jqBuiltinFunction input_line_number truncate_stream fromstream tostream
     syntax keyword jqBuiltinFunction modulemeta INDEX JOIN IN
     highlight default link jqBuiltinFunction Function
+    syntax keyword jqBuiltinFunctionContains contains
+    highlight default link jqBuiltinFunctionContains Function
 endif
 
 " Module prefix (similar to namespaces in C++), e.g. mymodule::add(. + 1)
