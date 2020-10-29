@@ -17,7 +17,7 @@ set cpoptions&vim
 
 setlocal comments=:#
 setlocal commentstring=#%s
-setlocal suffixesadd=.jq
+setlocal suffixesadd=.jq,.json
 setlocal include=^\\s*\\(import\\\|include\\)
 setlocal define=^\\s*def
 setlocal formatoptions=cqornlj
