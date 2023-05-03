@@ -1,2 +1,2 @@
-autocmd BufNewFile,BufRead,StdinReadPost *.jq set filetype=jq
-autocmd BufNewFile,BufRead,StdinReadPost * if getline(1) =~# '^#!\f\+\<jq\>' | set filetype=jq | endif
+autocmd BufNewFile,BufRead,StdinReadPost *.[jxy]q set filetype=jq
+autocmd BufNewFile,BufRead,StdinReadPost * if getline(1) =~# '^#!\f\+\(\s\(-\S\+\)\?\)*\<[jxy]q\>' | set filetype=jq | endif
